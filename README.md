@@ -41,11 +41,13 @@ AssignToHotkeys와 UniqueHotkeys는 어느 정도 정규분포의 형태를 띠�
 <br>
 
 (3) Map 관련 변수 (MinimapAttacks, MinimapRightClicks, TotalMapExplored)
-MinimapAttacks와 MinimapRightClicks는 대부분의 값이 0에 매우 가깝게 분포한 것으로 보입니다. 그에 반해 TotalMapExplored는 정규분포에 가까운 분포를 보입니다. <br> <br>
+MinimapAttacks와 MinimapRightClicks는 대부분의 값이 0에 매우 가깝게 분포한 것으로 보입니다. 그에 반해 TotalMapExplored는 정규분포에 가까운 분포를 보입니다.
+<br> <br>
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/a2c2e198-ae43-434b-b472-d9ba39f7e044)
 
-<br> <br>
+<br>
+<br>
 (4) 그 외 변수들
 Unit관련 변수들은 대체로 정규분포에 가까우면서도 left skewed 되어있는 형태를 가지고 있습니다. 게임플레이 시간을 표시한 변수들(HoursPerWeek, TotalHours)은 max 값이 비정상적으로 큰 값인 것으로 보입니다. <br> <br>
 
@@ -53,7 +55,7 @@ Unit관련 변수들은 대체로 정규분포에 가까우면서도 left skewed
 
 <br>
 <br>
-2) 데이터 전처리
+2) 데이터 전처리 <br>
 (1) 이상치 제거
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/2faac914-4153-4371-8127-1078bb6e5aae) 
