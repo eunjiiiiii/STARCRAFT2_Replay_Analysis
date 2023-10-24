@@ -24,7 +24,8 @@ SkillCraft2 데이터는 서로 다른 분위에서 플레이된 스타크래프
 ### 1) 데이터 탐색
 ---
 
-(1) 반응속도와 명령어 입력 관련 변수들(APM, NumberOfPACs, GapBetweenPACs,       ActionsInPAC)<br>
+**(1) 반응속도와 명령어 입력 관련 변수들(APM, NumberOfPACs, GapBetweenPACs,       ActionsInPAC)**
+<br>
 정규분포에 가깝게 분포되어 있으며, 타겟 변수인 LeagueIndex와 높거나 낮은 상관관계를 가집니다. RTS 장르는 전략과 전술이 중요하므로 이 변수들은 그러한 특성을 나타내는 변수들이기에 상관관계가 높게 나타난다고 판단했습니다.  <br>
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/047e48bd-822a-46ff-86f8-de6e3dd707b9)
@@ -34,22 +35,24 @@ SkillCraft2 데이터는 서로 다른 분위에서 플레이된 스타크래프
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/037bd532-53b6-4914-b5c6-785b3fed7b61)
 
 <br>
-(2) Hotkeys(단축키) 관련 변수들 (SelectByHotkeys, AssignToHotkeys, UniqueHotkeys)<br>
+
+**(2) Hotkeys(단축키) 관련 변수들 (SelectByHotkeys, AssignToHotkeys, UniqueHotkeys)**
+<br>
 AssignToHotkeys와 UniqueHotkeys는 어느 정도 정규분포의 형태를 띠고 있으나 left skewed 되어 있습니다. <br> <br>
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/a997ebbc-0c09-4ec8-aa23-fda2e6cc681c)
 
  <br>
 
-(3) Map 관련 변수 (MinimapAttacks, MinimapRightClicks, TotalMapExplored)<br>
+**(3) Map 관련 변수 (MinimapAttacks, MinimapRightClicks, TotalMapExplored)** <br>
 MinimapAttacks와 MinimapRightClicks는 대부분의 값이 0에 매우 가깝게 분포한 것으로 보입니다. 그에 반해 TotalMapExplored는 정규분포에 가까운 분포를 보입니다.
 <br> 
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/a2c2e198-ae43-434b-b472-d9ba39f7e044)
 
-
 <br>
-(4) 그 외 변수들<br>
+
+**(4) 그 외 변수들** <br>
 Unit관련 변수들은 대체로 정규분포에 가까우면서도 left skewed 되어있는 형태를 가지고 있습니다. 게임플레이 시간을 표시한 변수들(HoursPerWeek, TotalHours)은 max 값이 비정상적으로 큰 값인 것으로 보입니다. <br> 
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/c0fb0484-2cc6-455b-b72c-e61bb7ff2572)
@@ -112,11 +115,12 @@ Hourperweek와 totalhours의 범위가 0과 1 사이인 다른 변수들에 비�
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/efd30ec6-c97c-4169-a0c2-2284f34c918c)
 
 <br>
-
+ <br>
+ 
 #### (5) 중복 행 제거
  GameID를 제외한 모든 변수값이 같은 행이 2개 존재하여 한 행만 남기고 제거하였습니다.
  <br>
-
+ <br>
  
 #### (6) 변수값 수정 및 파생변수 생성
 변수들의 시간단위를 초로 통일하기 위해 PAC 단위의 변수들에는 88.5를 곱하고, 밀리세컨즈에는 1000을 나누고, APM은 60을 나누어 모두 초단위 값으로 변환하였습니다.
