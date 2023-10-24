@@ -20,7 +20,8 @@ SkillCraft2 데이터는 서로 다른 분위에서 플레이된 스타크래프
 
 변수 중 일부 데이터는 타임스탬프라는 시간 단위를 사용했는데, 이는 1초가 88.5타임스탬프를 의미합니다. 데이터셋 내에 타임스탬프당 변수들과 분당 변수들이 혼재되어있으므로 이를 1초 단위로 통일시켰습니다. <br>
 
-**1) 데이터 탐색**
+**1) 데이터 탐색** 
+<br>
 (1) 반응속도와 명령어 입력 관련 변수들(APM, NumberOfPACs, GapBetweenPACs,       ActionsInPAC)은 정규분포에 가깝게 분포되어 있으며, 타겟 변수인 LeagueIndex와 높거나 낮은 상관관계를 가집니다. RTS 장르는 전략과 전술이 중요하므로 이 변수들은 그러한 특성을 나타내는 변수들이기에 상관관계가 높게 나타난다고 판단했습니다.  <br>
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/047e48bd-822a-46ff-86f8-de6e3dd707b9)
@@ -38,8 +39,10 @@ AssignToHotkeys와 UniqueHotkeys는 어느 정도 정규분포의 형태를 띠�
  <br>
  <br>
 <br>
+
 (3) Map 관련 변수 (MinimapAttacks, MinimapRightClicks, TotalMapExplored)
 MinimapAttacks와 MinimapRightClicks는 대부분의 값이 0에 매우 가깝게 분포한 것으로 보입니다. 그에 반해 TotalMapExplored는 정규분포에 가까운 분포를 보입니다. <br> <br>
+
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/a2c2e198-ae43-434b-b472-d9ba39f7e044)
 
 <br> <br>
