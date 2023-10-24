@@ -55,7 +55,8 @@ Unit관련 변수들은 대체로 정규분포에 가까우면서도 left skewed
 
 <br>
 <br>
-2) 데이터 전처리 <br>
+2) 데이터 전처리 
+ <br>
 (1) 이상치 제거
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/2faac914-4153-4371-8127-1078bb6e5aae) 
