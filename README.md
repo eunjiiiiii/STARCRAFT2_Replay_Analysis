@@ -91,26 +91,52 @@ MinimapAttacks의 boxplot을 그려봤을 때, 다른 값들의 분포와 조금
 (2) 결측치 대체<br>
 결측치는 모두 원데이터의 LeagueIndex가 8인 데이터였기 때문에, 바로 아래 단계인 LeagueIndex가 7인 데이터의 각 변수의 평균으로 대체했습니다. 
 <br>
+<br>
 (3) 로그변환<br>
 Hourperweek와 totalhours의 범위가 0과 1 사이인 다른 변수들에 비해 매우 크므로 로그변환을 통해 범위를 축소하였습니다.<br>
 
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/1d3c8365-3915-4bce-8ad9-d372882f3f3f)
+
 그 다음 대부분의 변수가 조금 좌편향된 점을 반영해 0.05% 미만의 값까지 제거해주어 분포를 비슷하게 만들어주었습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/8305c665-3024-456d-86fb-a0e207b68ba7)
+
+<br>
 <br>
 (4) LeagueIndex 값 수정<br>
 로지스틱 회귀를 사용하기 위해 종속변수인 리그인덱스를 이변환하여 1~4까지는 0, 5~8까지는 1값으로 변환하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/efd30ec6-c97c-4169-a0c2-2284f34c918c)
+
+<br>
 <br>
 (5) 중복 행 제거<br>
  GameID를 제외한 모든 변수값이 같은 행이 2개 존재하여 한 행만 남기고 제거하였습니다.
+ <br>
  <br>
 (6) 변수값 수정 및 파생변수 생성 <br>
 변수들의 시간단위를 초로 통일하기 위해 PAC 단위의 변수들에는 88.5를 곱하고, 밀리세컨즈에는 1000을 나누고, APM은 60을 나누어 모두 초단위 값으로 변환하였습니다.
 <br>
 파생 변수는 총 4개를 생성하였습니다. 먼저 어느 액션이 게임에 영향을 미쳤는지 비교하기 위해 미니맵 입력, 단축키 입력을 각각 총 액션인 APS로 나누어 hotkeyrate, minimaprate를 생성하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/14eb56ff-257f-4bac-9883-797dbbd764ed)
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/3872e43f-a014-41c5-aaae-ee18f69b1d80)
+
 <br>
 pac란 인지를 시작하고 행동하기까지의 주기로, pac 자체보단 pac가 시행되는 시간이 중요하다고 판단하여 GapBetweenPACs와 ActionLatency를 합쳐 PACtime를 생성하였습니다. 이 변수를 통해 얼마나 빠르게 인지하고 행동했는지를 알 수 있게끔 하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/1f2ce4a6-9319-4119-9b9d-e951e1f58c27)
+
 일반 상황에서 총 유닛 생성을 대표하는 변수를 생성하기 위해, 특수한 상황에서 생성되는 complexunitmade를 제외한 나머지 두 유닛생성변수를 합하여 Unitmade를 생성하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/b98eedf7-e3be-498e-bd6c-729bcf943015)
+
 <br>
 변수 삭제는 총 3개를 진행하였습니다. GameID는 모든 row에서 유니크한 인덱스 역할을 하기 때문에 , Age는 종속변수와의 매우 낮은 상관계수와 더불어 티어마다 고르게 분포됨, ComplexAbilitiesMade는 2/3가 0값을 가질뿐더러 티어마다 고르게 분포됨 고 같은 이유로 삭제하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/4b0e4414-2b69-4e2d-ab1f-6d952cc21f93)
+
 <br>
 <br>
 <br>
@@ -123,21 +149,46 @@ pac란 인지를 시작하고 행동하기까지의 주기로, pac 자체보단 
 그리고 분류 정확도를 높이기 위해 함수를 생성하여 최적의 임계값을 찾아 정확도를 구하였습니다.
 <br>
 먼저 full model입니다. 종속 변수는 리그인덱스, 설명변수는 전처리 후 13개의 변수로 모델링을 진행하였습니다. 그 결과 최적 임계값인 0.558로 조정 후 정확도가 0.807, AUC는 0.89였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/66368d56-a892-446c-bb17-169104b04e98)
+
 <br>
 변수 중요도를 참고하여 총 세 개의 변수를 제외하였습니다. 먼저 totalmapExplored, 매우 낮은 변수 중요도와 더불어 게임마다 지형적 특징이 다를수 있다는 점을 감안해 제외하였습니다. hoursperweek, 역시 매우 낮은 변수 중요도와 함께 게임 시간을 의미하는 totalhours가 존재하여 제외하였습니다. 마지막으로 aps, hotkeyrate, minimapkeyrate 생성으로 인한 다중공선성과 더불어 이 두 변수가 높은 변수 중요도를 보이기에 제외하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/08a3c79b-abca-49be-aed8-98ef86e06504)
+
 <br>
 변수 선택을 진행 한 후 1차 모델링을 한 결과 최적 임계값 0.503로 조정 후 정확도가 0.804, AUC는 0.88이 나왔습니다. 
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/69605f29-d67a-46b5-9b30-074f3caa5225)
+
 <br>
 위 단계에서 변수 의미상 PAC 내에서의 Action은 통일된 PACtime에서 결정된 값이 아니기 때문에 변수중요도가 낮게 나왔다고 판단된 ActionsInPAC를 제외하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/95ab7cdf-b7e9-483e-9ba2-8c3b00af0274)
+
 <br>
 그 다음 독립변수 전체에 대한 10분위 분석을 진행한 결과 complexunitsmade가 단조 감소하지 않고 두 가지 정도의 범주로 분류할 수 있다고 판단하여 1~5분위까지 1, 6~10분위까지 2로 변수를 범주화 하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/db7392bc-e0c8-487a-93e1-31509b2a3592)
+
 <br>
 그 후, 2차 모델링을 한 결과 최적 임계값 0.490로 조정 후 정확도가 0.802, AUC는 0.88이 나왔습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/8928607b-5813-495c-b771-4b1a02ab55e8)
+
 <br>
 변수들을 계속 제외하였음에도 불구하고 정확도와 AUC가 유지되었고, confusion matrix 결과 0을 정확히 분류할 확률은 85퍼센트, 1을 정확히 분류할 확률은 76%를 기록하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/395a1bde-f69e-4ef6-bb88-544d003d22fb)
+
 <br>
-2차 모델로 10-fold cross-validation을 진행한 결과 정확도의 평균은 0.7992로 기존 정확도와 유사한 값을 확인하였습니다.<br>
+2차 모델로 10-fold cross-validation을 진행한 결과 정확도의 평균은 0.7992로 기존 정확도와 유사한 값을 확인하였습니다.
+<br>
 최종모델 변수 선택과 비교를 위해 full model에서의 후진 선택법 변수 선택을 진행한 결과  totalmapexplored -> hoursperweek -> aps 순으로 변수를 제거하였고, 조정 r squared 값 역시 증가하고 있는 양상을 보여 본 조의 변수 선택법과 매우 유사하다는 점을 확인하였습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/62fb81b6-8134-42c9-8048-895ae720722c)
+
 <br>
 <br>
 <br>
@@ -146,7 +197,16 @@ pac란 인지를 시작하고 행동하기까지의 주기로, pac 자체보단 
 최종모형의 오즈비를 토대로 각 변수 1단위 증가 시 상위랭크 확률 증가비율을 구할 수 있었고, 상위 5개 변수를 본 결과 PACtime은 증가할수록 상위 랭크일 확률이 낮아지며, totalhours, numberofpacs, hotkeyrate, unitsmade는 증가할수록 상위 랭크일 확욜이 높아짐을 확인할 수 있었습니다.
 <br>
 train data의 10분위 분석표를 살펴 본 결과 모든 분위에서 단조롭게 actual 값이 줄어들고 있으므로 모형은 train셋에 양호하게 작동됨을 알 수 있습니다
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/0525c6c2-6350-4739-906e-f603ffe2eaae)
+
 <br>
 test data 역시 같은 이유로 양호하게 작동됨을 알 수 있습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/80185991-7839-485a-a949-ea2d9a7637c9)
+
 <br>
 이익도표를 보면 5그룹까지는 구축된 모형이 평균모형보다 우수함을 볼 수 있고, 전체 데이터만의 50%만으로 모형을 구축하지 않았을 때모다 61% 더 많은 상위 랭크 게임 플레이어를 찾을 수 있었습니다.
+
+![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/7aa00325-be37-4225-8dc7-558e88d2a727)
+
