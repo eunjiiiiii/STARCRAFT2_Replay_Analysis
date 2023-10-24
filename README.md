@@ -26,7 +26,7 @@ SkillCraft2 데이터는 서로 다른 분위에서 플레이된 스타크래프
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/047e48bd-822a-46ff-86f8-de6e3dd707b9)
 
- <br> <br>
+
  
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/037bd532-53b6-4914-b5c6-785b3fed7b61)
 
@@ -37,25 +37,23 @@ AssignToHotkeys와 UniqueHotkeys는 어느 정도 정규분포의 형태를 띠�
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/a997ebbc-0c09-4ec8-aa23-fda2e6cc681c)
 
  <br>
- <br>
-<br>
 
 (3) Map 관련 변수 (MinimapAttacks, MinimapRightClicks, TotalMapExplored)
 MinimapAttacks와 MinimapRightClicks는 대부분의 값이 0에 매우 가깝게 분포한 것으로 보입니다. 그에 반해 TotalMapExplored는 정규분포에 가까운 분포를 보입니다.
-<br> <br>
+<br> 
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/a2c2e198-ae43-434b-b472-d9ba39f7e044)
 
-<br>
+
 <br>
 (4) 그 외 변수들
-Unit관련 변수들은 대체로 정규분포에 가까우면서도 left skewed 되어있는 형태를 가지고 있습니다. 게임플레이 시간을 표시한 변수들(HoursPerWeek, TotalHours)은 max 값이 비정상적으로 큰 값인 것으로 보입니다. <br> <br>
+Unit관련 변수들은 대체로 정규분포에 가까우면서도 left skewed 되어있는 형태를 가지고 있습니다. 게임플레이 시간을 표시한 변수들(HoursPerWeek, TotalHours)은 max 값이 비정상적으로 큰 값인 것으로 보입니다. <br> 
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/c0fb0484-2cc6-455b-b72c-e61bb7ff2572)
 
+
 <br>
-<br>
-2) 데이터 전처리 
+**2) 데이터 전처리 **
  <br>
 (1) 이상치 제거
 
