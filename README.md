@@ -53,10 +53,10 @@ Unit관련 변수들은 대체로 정규분포에 가까우면서도 left skewed
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/c0fb0484-2cc6-455b-b72c-e61bb7ff2572)
 
 
-<br>
-**2) 데이터 전처리 **
- <br>
-(1) 이상치 제거
+
+**2) 데이터 전처리**
+---
+**(1) 이상치 제거**
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/2faac914-4153-4371-8127-1078bb6e5aae) 
 
@@ -88,11 +88,11 @@ MinimapAttacks의 boxplot을 그려봤을 때, 다른 값들의 분포와 조금
   그 외 0인 값이 존재하는 변수들을 확인했을 때, 의미상 0인 값이 존재할 수 있으므로 0인 값을 이상치처리하지 않았습니다.<br>
   
 
-(2) 결측치 대체<br>
+**(2) 결측치 대체**<br>
 결측치는 모두 원데이터의 LeagueIndex가 8인 데이터였기 때문에, 바로 아래 단계인 LeagueIndex가 7인 데이터의 각 변수의 평균으로 대체했습니다. 
 <br>
 <br>
-(3) 로그변환<br>
+**(3) 로그변환**<br>
 Hourperweek와 totalhours의 범위가 0과 1 사이인 다른 변수들에 비해 매우 크므로 로그변환을 통해 범위를 축소하였습니다.<br>
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/1d3c8365-3915-4bce-8ad9-d372882f3f3f)
@@ -102,19 +102,20 @@ Hourperweek와 totalhours의 범위가 0과 1 사이인 다른 변수들에 비�
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/8305c665-3024-456d-86fb-a0e207b68ba7)
 
 <br>
-<br>
-(4) LeagueIndex 값 수정<br>
+
+**(4) LeagueIndex 값 수정**<br>
 로지스틱 회귀를 사용하기 위해 종속변수인 리그인덱스를 이변환하여 1~4까지는 0, 5~8까지는 1값으로 변환하였습니다.
 
 ![image](https://github.com/eunjiiiiii/STARCRAFT2_Replay_Analysis/assets/47842737/efd30ec6-c97c-4169-a0c2-2284f34c918c)
 
 <br>
-<br>
-(5) 중복 행 제거<br>
+
+**(5) 중복 행 제거**<br>
  GameID를 제외한 모든 변수값이 같은 행이 2개 존재하여 한 행만 남기고 제거하였습니다.
  <br>
- <br>
-(6) 변수값 수정 및 파생변수 생성 <br>
+
+ 
+**(6) 변수값 수정 및 파생변수 생성** <br>
 변수들의 시간단위를 초로 통일하기 위해 PAC 단위의 변수들에는 88.5를 곱하고, 밀리세컨즈에는 1000을 나누고, APM은 60을 나누어 모두 초단위 값으로 변환하였습니다.
 <br>
 파생 변수는 총 4개를 생성하였습니다. 먼저 어느 액션이 게임에 영향을 미쳤는지 비교하기 위해 미니맵 입력, 단축키 입력을 각각 총 액션인 APS로 나누어 hotkeyrate, minimaprate를 생성하였습니다.
